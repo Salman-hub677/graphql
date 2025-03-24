@@ -1,5 +1,5 @@
 import { Piscine_Info } from "../Queries/Query";
-import React, { useMemo } from "react";
+import React from "react";
 import ApexCharts from "react-apexcharts";
 import { useQuery } from "@apollo/client";
 
@@ -144,7 +144,7 @@ const PiscineGraph = () => {
       options={options}
       type="bubble"
       series={series}
-      width={450}
+      width={850}
       height={450}
     />
   );

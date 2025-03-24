@@ -3,7 +3,7 @@ import LoginForm from './Components/LoginForm/Login-Form';
 import Profile from './Components/Dashboard/Profile'
 import { Route ,  Routes , useNavigate } from 'react-router-dom';
 
-import './App.css';
+
 
 
 
@@ -26,7 +26,7 @@ function App() {
   return (
   
       <Routes>
-        {!isAuthenticated && <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />}
+         <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />
         {isAuthenticated && <Route path="/dashboard" element={<Profile onLogout={handleLogout} />} />}
       </Routes>
    

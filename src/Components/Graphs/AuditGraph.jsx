@@ -59,8 +59,8 @@ export const AuditGraph = () => {
 
   return (
     <div>
-      <h3> Done : {doneAmount}</h3>
-      <h3>Recieved: {recievedAmount}</h3>
+      <h4> Done : {doneAmount}</h4>
+      <h4>Recieved: {recievedAmount}</h4>
       <Chart
         options={options}
         series={series}
@@ -68,7 +68,7 @@ export const AuditGraph = () => {
         height={400}
         width={400}
       />
-      <h1>{auditRatio}</h1>
+      <h1>{auditRatio}x</h1>
     </div>
   );
 };

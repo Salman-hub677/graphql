@@ -24,12 +24,12 @@ const Profile = ({ onLogout }) => {
   const userInfo = userData.user[0];
 
   return (
-    <Container fluid className="p-4" style={{ backgroundColor: '#1a1a1a' , marginTop: '20px',
-  marginBottom: '20px' }}>
-    <Row className="mb-4">
-      <Col md={8}>
+  
+    <Container fluid className="p-4" style={{ backgroundColor: '#1a1a1a' }}>
+    <Row className="mb-4" >
+      <Col md={8} >
         <h1 className="mb-3 text-light">Welcome, {userInfo.login}</h1>
-        <p className="text-muted">Email: {userInfo.email}</p>
+        <p className="text-light">Email: {userInfo.email}</p>
       </Col>
       <Col md={4} className="text-right d-flex justify-content-end align-items-center">
         <Button variant="outline-light" onClick={onLogout}>Logout</Button>
@@ -37,18 +37,18 @@ const Profile = ({ onLogout }) => {
     </Row>
   
     <Row className="mb-4">
-      <Col md={6}>
+      <Col md={4} >
         <Card className="h-100 shadow-sm bg-dark text-light">
           <Card.Header as="h5" className="bg-secondary">Audit Performance</Card.Header>
-          <Card.Body>
+          <Card.Body className="d-flex justify-content-center align-items-center">
             <AuditGraph />
           </Card.Body>
         </Card>
       </Col>
-      <Col md={6}>
+      <Col md={8}>
         <Card className="h-100 shadow-sm bg-dark text-light">
           <Card.Header as="h5" className="bg-secondary">Piscine Progress</Card.Header>
-          <Card.Body>
+          <Card.Body className="d-flex justify-content-center align-items-center">
             <PiscineGraph />
           </Card.Body>
         </Card>
@@ -59,7 +59,7 @@ const Profile = ({ onLogout }) => {
       <Col md={12}>
         <Card className="shadow-sm bg-dark text-light">
           <Card.Header as="h5" className="bg-secondary">Project XP Overview</Card.Header>
-          <Card.Body>
+          <Card.Body className="d-flex justify-content-center align-items-center">
             <ProjectXPGraph />
           </Card.Body>
         </Card>
@@ -70,13 +70,14 @@ const Profile = ({ onLogout }) => {
       <Col md={12}>
         <Card className="shadow-sm bg-dark text-light">
           <Card.Header as="h5" className="bg-secondary">Project Timeline</Card.Header>
-          <Card.Body>
+          <Card.Body className="d-flex justify-content-center align-items-center">
             <DatesGraph />
           </Card.Body>
         </Card>
       </Col>
     </Row>
   </Container>
+  
   
   );
 };
