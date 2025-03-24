@@ -91,6 +91,7 @@ const LoginForm = ({ onAuthSuccess }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="bg-dark text-light border-0"
+              
               />
             </InputGroup>
           </Form.Group>

@@ -10,12 +10,10 @@ const PiscineGraph = () => {
     data: isData,
   } = useQuery(Piscine_Info);
 
-
-
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching user data</p>;
 
-  const dataStore = isData.result
+  const dataStore = isData.result;
 
   const result = dataStore.reduce((acc, { objectId, grade, object }) => {
     if (grade === 0) {
@@ -24,9 +22,9 @@ const PiscineGraph = () => {
         objectId,
         grade,
         attrs: object?.attrs || {},
-        id: object.id ,
-        name: object.name ,
-        type: object.type
+        id: object.id,
+        name: object.name,
+        type: object.type,
       };
     }
     return acc;
@@ -54,6 +52,7 @@ const PiscineGraph = () => {
         enabled: false,
       },
     },
+    colors: ["red"],
     title: {
       text: "Top 15 Most Tried Exercises in GO Piscine",
       align: "center",
@@ -64,6 +63,14 @@ const PiscineGraph = () => {
       },
     },
     xaxis: {
+      title: {
+        text: "Exercise",
+        style: {
+          color: "white",
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
+      },
       type: "category",
       categories: Object.values(topfifteen).map((item) => item.name),
       labels: {
@@ -71,19 +78,11 @@ const PiscineGraph = () => {
           colors: Array(Object.values(topfifteen).length).fill("white"),
           fontSize: "12px",
         },
-        rotate: -45,
+        rotateAlways: true,
+        rotate: 330,
         trim: false,
         hideOverlappingLabels: false,
         offsetY: 5,
-       
-        formatter: function (value) {
-          if (typeof value === "string" && value) {
-            const maxLength = 8; 
-            return value.length > maxLength ? value.substring(0, maxLength) + "..." : value;
-          }
-          return value;
-        },
-       
       },
     },
     yaxis: {
@@ -107,10 +106,7 @@ const PiscineGraph = () => {
       enabled: true,
       shared: false,
       followCursor: true,
-
-
       theme: "dark",
-     
       y: {
         formatter(val) {
           return `Count Tried: ${val}`;
@@ -132,8 +128,8 @@ const PiscineGraph = () => {
     {
       name: "go-Piscine",
       data: Object.values(topfifteen).map((item) => ({
-        x: item.name, 
-        y: item.count, 
+        x: item.name,
+        y: item.count,
         z: Math.sqrt(item.count) * 10 || 10,
       })),
     },
@@ -144,7 +140,7 @@ const PiscineGraph = () => {
       options={options}
       type="bubble"
       series={series}
-      width={850}
+      width={800}
       height={450}
     />
   );

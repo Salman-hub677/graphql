@@ -36,21 +36,23 @@ export const AuditGraph = () => {
       type: "donut",
     },
     labels: ["done", "recieved"],
+    colors: ["green", "red"],
     dataLabels: {
       style: {
         fontSize: "12px",
         fontFamily: "Arial, sans-serif",
         fontWeight: "bold",
-        colors: ["#000"],
+        colors: ["black"],
       },
     },
 
     legend: {
       fontSize: "14px",
       fontWeight: "bold",
+      
       labels: {
         fontFamily: "Arial, sans-serif",
-        colors: ["#000" ,"#000" ],
+        colors: ["white" ,"white" ],
       },
     },
   };
