@@ -25,7 +25,7 @@ const LoginForm = ({ onAuthSuccess }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Invalid Username or Password");
+        throw new Error("Invalid Credentials");
       }
 
       const token = await response.json();
