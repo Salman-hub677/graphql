@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from './Components/LoginForm/Login-Form';
 import Profile from './Components/Dashboard/Profile'
-import { Route ,  Routes , useNavigate } from 'react-router-dom';
+import { Route ,  Routes , useNavigate,  Navigate } from 'react-router-dom';
 
 
 
@@ -26,8 +26,9 @@ function App() {
   return (
   
       <Routes>
-         <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />
+        {!isAuthenticated &&   <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />}
         {isAuthenticated && <Route path="/dashboard" element={<Profile onLogout={handleLogout} />} />}
+        <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} replace />} />
       </Routes>
    
   );

@@ -86,6 +86,7 @@ const PiscineGraph = () => {
       },
     },
     yaxis: {
+      tickAmount: 7,
       title: {
         text: "Count",
         style: {
