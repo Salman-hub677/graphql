@@ -1,14 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Form, Button, Container, InputGroup } from "react-bootstrap";
-import "../LoginForm/Login.css";
+import * as THREE from "three";  
+import NET from "vanta/dist/vanta.net.min";
+
 const endpoint = "https://learn.reboot01.com/api/auth/signin";
 
 const LoginForm = ({ onAuthSuccess }) => {
+  const [vantaEffect, setVantaEffect] = useState(null);
+  const vantaRef = useRef(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [color, setColor] = useState("White");
+
+  // Initialize Vanta effect only once when component mounts.
+  useEffect(() => {
+    if (vantaRef.current && !vantaEffect) {
+      const effectInstance = NET({
+        el: vantaRef.current,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: color,
+        backgroundColor: 0x000000,
+        points: 20.0,
+        THREE,
+      });
+      setVantaEffect(effectInstance);
+    }
+    return () => {
+      if (vantaEffect) {
+        vantaEffect.destroy();
+        setVantaEffect(null);
+      }
+    };
+    
+  }, []); 
+
+ // Separate effect for updating options (like color).
+  useEffect(() => {
+    if (vantaEffect) {
+      vantaEffect.setOptions({ color });
+    }
+  }, [color, vantaEffect]);
 
   const usersignin = async (e) => {
     e.preventDefault();
@@ -25,15 +65,20 @@ const LoginForm = ({ onAuthSuccess }) => {
       });
 
       if (!response.ok) {
+        setColor("Red");
+        setError("Invalid Credentials");
         throw new Error("Invalid Credentials");
       }
 
       const token = await response.json();
 
       if (token) {
+        setColor("green");
         console.log("Login successful. Token:", token);
-        localStorage.setItem("token", token);
-        onAuthSuccess();
+        setTimeout(() => {
+          localStorage.setItem("token", token);
+          onAuthSuccess();
+        }, 1000);
       } else {
         setError("Login failed. Please try again.");
       }
@@ -43,16 +88,13 @@ const LoginForm = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div
-      class="bg d-flex justify-content-center align-items-center vh-100"
-    >
+    <div ref={vantaRef} className="bg d-flex justify-content-center align-items-center vh-100">
       <Container
         className="p-4 rounded text-light"
         style={{
           maxWidth: "400px",
           background: "rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(10px)",
-         
           border: "1px solid rgba(255, 255, 255, 0.2)",
           borderRadius: "10px",
         }}
@@ -60,7 +102,9 @@ const LoginForm = ({ onAuthSuccess }) => {
         <Form onSubmit={usersignin}>
           <h2 className="text-center mb-4">Login</h2>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label style={{color: "black" , fontWeight : "bold"}}>Email/Username</Form.Label>
+            <Form.Label style={{ color: "white", fontWeight: "bold" }}>
+              Email/Username
+            </Form.Label>
             <InputGroup>
               <InputGroup.Text className="bg-dark text-light border-0">
                 <FaUser />
@@ -78,7 +122,9 @@ const LoginForm = ({ onAuthSuccess }) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label style={{color: "black" , fontWeight : "bold"}}>Password</Form.Label>
+            <Form.Label style={{ color: "white", fontWeight: "bold" }}>
+              Password
+            </Form.Label>
             <InputGroup>
               <InputGroup.Text className="bg-dark text-light border-0">
                 <FaLock />
@@ -91,7 +137,6 @@ const LoginForm = ({ onAuthSuccess }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="bg-dark text-light border-0"
-              
               />
             </InputGroup>
           </Form.Group>

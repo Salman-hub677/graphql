@@ -15,22 +15,22 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     navigate("/dashboard")
+    
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
     navigate("/")
+
   };
 
-  return (
-  
-      <Routes>
-        {!isAuthenticated &&   <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />}
-        {isAuthenticated && <Route path="/dashboard" element={<Profile onLogout={handleLogout} />} />}
-        <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} replace />} />
-      </Routes>
-   
+  return ( 
+    <Routes>
+    {!isAuthenticated && <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />}
+    {isAuthenticated && <Route path="/dashboard" element={<Profile onLogout={handleLogout} />} />}
+    <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} replace />} />
+  </Routes>
   );
 }
 

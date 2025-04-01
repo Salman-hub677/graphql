@@ -99,7 +99,7 @@ const DatesGraph = () => {
           fontWeight: "bold",
           fontSize : "15px"
         },
-        offsetY: 10,
+        offsetY: 30,
       },
       labels: {
         formatter: function (val) {
