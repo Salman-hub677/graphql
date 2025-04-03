@@ -42,7 +42,7 @@ const LoginForm = ({ onAuthSuccess }) => {
     
   }, []); 
 
-
+ // Separate effect for updating options (like color).
   useEffect(() => {
     if (vantaEffect) {
       vantaEffect.setOptions({ color });
@@ -52,7 +52,13 @@ const LoginForm = ({ onAuthSuccess }) => {
   const usersignin = async (e) => {
     e.preventDefault();
     setError("");
-    const encodedCredentials = btoa(`${username}:${password}`);
+    let encodedCredentials;
+    try {
+      encodedCredentials = btoa(`${username}:${password}`);
+    } catch (error) {
+      console.error("Encoding Error:", error.message);
+      encodedCredentials = null; 
+    }
 
     try {
       const response = await fetch(endpoint, {

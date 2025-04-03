@@ -49,7 +49,7 @@ export const AuditGraph = () => {
         fontSize: "12px",
         fontFamily: "Arial, sans-serif",
         fontWeight: "bold",
-        colors: ["black"],
+        colors: ["white"],
       },
     },
 

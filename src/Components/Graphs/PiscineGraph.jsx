@@ -69,7 +69,24 @@ const PiscineGraph = () => {
         fontWeight: "bold",
       },
     },
+    tooltip: {
+      enabled: true,
+      shared: false,
+      followCursor: true,
+      theme: "dark",
+      custom: function({ series, seriesIndex, dataPointIndex, w }) {
+        const data = w.config.series[seriesIndex].data[dataPointIndex];
+        return `
+          <div class="tooltip-box">
+            <strong>Exercise:</strong> ${data.x}<br />
+            <strong>Count Tried:</strong> ${data.y}<br />
+          </div>
+        `;
+      },
+    },
     xaxis: {
+      type: "category",
+      categories: Object.values(topfifteen).map((item) => item.name),
       title: {
         text: "Exercise",
         style: {
@@ -77,12 +94,14 @@ const PiscineGraph = () => {
           fontSize: "14px",
           fontWeight: "bold",
         },
-        offsetY: 4,
-        offsetX: 300
       },
-      type: "category",
-      categories: Object.values(topfifteen).map((item) => item.name),
       labels: {
+        formatter(val) {
+          if (!val || typeof val !== "string") {
+            return "";
+          }
+          return val.length > 8 ? `${val.substring(0, 8)}...` : val; 
+        },
         style: {
           colors: Array(Object.values(topfifteen).length).fill("white"),
           fontSize: "12px",
@@ -112,23 +131,7 @@ const PiscineGraph = () => {
       },
     },
 
-    tooltip: {
-      enabled: true,
-      shared: false,
-      followCursor: true,
-      theme: "dark",
-      y: {
-        formatter(val) {
-          return `Count Tried: ${val}`;
-        },
-      },
-      z: {
-        formatter(val) {
-          return "";
-        },
-        title: "",
-      },
-    },
+   
     dataLabels: {
       enabled: false,
     },
@@ -150,7 +153,7 @@ const PiscineGraph = () => {
       options={options}
       type="bubble"
       series={series}
-      width={800}
+      width={900}
       height={450}
     />
   );
