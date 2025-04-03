@@ -1,5 +1,5 @@
 import { Piscine_Info } from "../Queries/Query";
-import React from "react";
+import React, { useEffect } from "react";
 import ApexCharts from "react-apexcharts";
 import { useQuery } from "@apollo/client";
 
@@ -8,12 +8,19 @@ const PiscineGraph = () => {
     loading: isLoading,
     error: isError,
     data: isData,
+    refetch: refetchUserData,
   } = useQuery(Piscine_Info);
+
+  useEffect(() => {
+    refetchUserData();
+  }, [refetchUserData]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching user data</p>;
 
   const dataStore = isData.result;
+
+  
 
   const result = dataStore.reduce((acc, { objectId, grade, object }) => {
     if (grade === 0) {
@@ -70,6 +77,8 @@ const PiscineGraph = () => {
           fontSize: "14px",
           fontWeight: "bold",
         },
+        offsetY: 4,
+        offsetX: 300
       },
       type: "category",
       categories: Object.values(topfifteen).map((item) => item.name),

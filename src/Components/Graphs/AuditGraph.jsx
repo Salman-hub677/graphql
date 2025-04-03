@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect} from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "@apollo/client";
 import {
@@ -11,13 +11,20 @@ export const AuditGraph = () => {
     loading: doneLoading,
     error: doneError,
     data: doneData,
+    refetch: refetchUserData
   } = useQuery(UserTransactionsDone);
 
   const {
     loading: recievedLoading,
     error: recievedError,
     data: recievedData,
+    refetch: refetchUserDatatwo
   } = useQuery(UserTransactionsRecieved);
+
+   useEffect(() => {
+    refetchUserDatatwo()
+      refetchUserData();
+    }, [refetchUserData,refetchUserDatatwo]);
 
   if (doneLoading || recievedLoading) return <p>Loading ...</p>;
   if (doneError || recievedError) return <p>Error </p>;

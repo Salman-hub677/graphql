@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuditGraph } from "../Graphs/AuditGraph";
 import ProjectXPGraph from "../Graphs/ProjectXPGraph";
 import PiscineGraph from "../Graphs/PiscineGraph";
@@ -14,7 +14,12 @@ const Profile = ({ onLogout }) => {
     loading: userLoading,
     error: userError,
     data: userData,
+    refetch: refetchUserData,
   } = useQuery(UserInfo);
+
+  useEffect(() => {
+    refetchUserData();
+  }, [refetchUserData]);
 
 
   if (userLoading ) return <p>Loading...</p>;
@@ -48,8 +53,8 @@ const Profile = ({ onLogout }) => {
       <Col md={8}>
         <Card className="h-100 shadow-sm bg-dark text-light">
           <Card.Header as="h5" className="bg-secondary">Piscine Progress</Card.Header>
-          <Card.Body className="d-flex justify-content-center align-items-center">
-            <PiscineGraph />
+          <Card.Body className="d-flex justify-content-center align-items-center" > 
+            <PiscineGraph   />
           </Card.Body>
         </Card>
       </Col>

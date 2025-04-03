@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useQuery } from "@apollo/client";
 import { Dates_Projects } from "../Queries/Query";
 import Chart from "react-apexcharts";
@@ -15,7 +15,12 @@ const DatesGraph = () => {
     loading: isLoading,
     error: isError,
     data: infoData,
+    refetch: refetchUserData
   } = useQuery(Dates_Projects);
+
+  useEffect(() => {
+     refetchUserData();
+   }, [refetchUserData]);
 
   if (isLoading) return <p>Loading ...</p>;
   if (isError) return <p>Error</p>;
@@ -91,7 +96,7 @@ const DatesGraph = () => {
 
     xaxis: {
       type: "datetime",
-      tickAmount: 'dataPoints',
+      tickAmount: 10,
       title: {
         text: "Date Completed",
         style: {

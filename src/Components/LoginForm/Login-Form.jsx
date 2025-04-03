@@ -15,7 +15,6 @@ const LoginForm = ({ onAuthSuccess }) => {
   const [error, setError] = useState("");
   const [color, setColor] = useState("White");
 
-  // Initialize Vanta effect only once when component mounts.
   useEffect(() => {
     if (vantaRef.current && !vantaEffect) {
       const effectInstance = NET({
@@ -43,7 +42,7 @@ const LoginForm = ({ onAuthSuccess }) => {
     
   }, []); 
 
- // Separate effect for updating options (like color).
+
   useEffect(() => {
     if (vantaEffect) {
       vantaEffect.setOptions({ color });
