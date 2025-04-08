@@ -153,7 +153,7 @@ const PiscineGraph = () => {
       options={options}
       type="bubble"
       series={series}
-      width={900}
+      width={800}
       height={450}
     />
   );

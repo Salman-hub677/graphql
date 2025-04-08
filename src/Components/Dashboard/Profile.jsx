@@ -23,8 +23,14 @@ const Profile = ({ onLogout }) => {
 
 
   if (userLoading ) return <p>Loading...</p>;
-  if (userError)
+  if (userError) {
+    if(userError.message === "Could not verify JWT: JWTExpired") {
+      localStorage.removeItem("token")
+    }
+    console.log(userError.message)
     return <p>Error fetching user data: {userError.message}</p>;
+  }
+   
 
   const userInfo = userData.user[0];
 

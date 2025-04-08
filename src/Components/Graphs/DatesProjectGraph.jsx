@@ -57,6 +57,8 @@ const DatesGraph = () => {
   console.log(golang);
   console.log(js);
 
+  
+
   const goSeries = {
     name: "Golang",
     data: golang,
@@ -96,7 +98,8 @@ const DatesGraph = () => {
 
     xaxis: {
       type: "datetime",
-      tickAmount: 10,
+      tickAmount: 17,
+     
       title: {
         text: "Date Completed",
         style: {
@@ -104,7 +107,7 @@ const DatesGraph = () => {
           fontWeight: "bold",
           fontSize : "15px"
         },
-        offsetY: 30,
+        offsetY: 25,
       },
       labels: {
         formatter: function (val) {
