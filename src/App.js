@@ -12,6 +12,7 @@ function App() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    
     setIsAuthenticated(true);
     navigate("/dashboard");
   };

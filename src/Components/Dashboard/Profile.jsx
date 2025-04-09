@@ -10,6 +10,7 @@ import {
 } from "../Queries/Query";
 import { useQuery } from "@apollo/client";
 const Profile = ({ onLogout }) => {
+ 
   const {
     loading: userLoading,
     error: userError,

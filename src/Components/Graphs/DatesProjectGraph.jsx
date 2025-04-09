@@ -57,6 +57,10 @@ const DatesGraph = () => {
   console.log(golang);
   console.log(js);
 
+  if (js.length ===0 && golang.length === 0){
+     return <h4>No Data Found</h4>
+  }
+
   
 
   const goSeries = {
@@ -77,6 +81,9 @@ const DatesGraph = () => {
         enabled: false,
       },
       type: "scatter",
+      toolbar: {
+        show: false,
+      }
     },
     yaxis: {
       title: {

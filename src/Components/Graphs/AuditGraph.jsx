@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "@apollo/client";
 import {
@@ -11,33 +11,44 @@ export const AuditGraph = () => {
     loading: doneLoading,
     error: doneError,
     data: doneData,
-    refetch: refetchUserData
+    refetch: refetchUserData,
   } = useQuery(UserTransactionsDone);
 
   const {
     loading: recievedLoading,
     error: recievedError,
     data: recievedData,
-    refetch: refetchUserDatatwo
+    refetch: refetchUserDatatwo,
   } = useQuery(UserTransactionsRecieved);
 
-   useEffect(() => {
-    refetchUserDatatwo()
-      refetchUserData();
-    }, [refetchUserData,refetchUserDatatwo]);
+  useEffect(() => {
+    refetchUserDatatwo();
+    refetchUserData();
+  }, [refetchUserData, refetchUserDatatwo]);
 
   if (doneLoading || recievedLoading) return <p>Loading ...</p>;
   if (doneError || recievedError) return <p>Error </p>;
 
-  const doneAmount = Number(
-    (doneData.transaction_aggregate.aggregate.sum.amount / 1000000).toFixed(3)
-  );
-  const recievedAmount = Number(
-    (recievedData.transaction_aggregate.aggregate.sum.amount / 1000000).toFixed(
-      3
-    )
-  );
-  const auditRatio = Number(doneData.user[0].auditRatio.toFixed(1));
+  const doneAmount =
+    doneData?.transaction_aggregate?.aggregate?.sum?.amount
+      ? Number((doneData.transaction_aggregate.aggregate.sum.amount / 1000000).toFixed(3))
+      : 0;
+
+  const recievedAmount =
+    recievedData?.transaction_aggregate?.aggregate?.sum?.amount
+      ? Number((recievedData.transaction_aggregate.aggregate.sum.amount / 1000000).toFixed(3))
+      : 0;
+
+  // Safely access auditRatio and provide a fallback value if it's undefined or null
+  const auditRatio =
+    doneData?.user?.[0]?.auditRatio !== undefined && doneData.user[0].auditRatio !== null
+      ? Number(doneData.user[0].auditRatio.toFixed(1))
+      : 0;
+
+      if(auditRatio === 0 ){
+        return <h4>No Data Found</h4>
+      }
+
   const options = {
     chart: {
       type: "donut",
@@ -52,14 +63,12 @@ export const AuditGraph = () => {
         colors: ["white"],
       },
     },
-
     legend: {
       fontSize: "14px",
       fontWeight: "bold",
-      
       labels: {
         fontFamily: "Arial, sans-serif",
-        colors: ["white" ,"white" ],
+        colors: ["white", "white"],
       },
     },
   };
@@ -68,15 +77,9 @@ export const AuditGraph = () => {
 
   return (
     <div>
-      <h4> Done : {doneAmount}</h4>
+      <h4>Done : {doneAmount}</h4>
       <h4>Recieved: {recievedAmount}</h4>
-      <Chart
-        options={options}
-        series={series}
-        type="donut"
-        height={400}
-        width={400}
-      />
+      <Chart options={options} series={series} type="donut" height={400} width={400} />
       <h1>{auditRatio}x</h1>
     </div>
   );

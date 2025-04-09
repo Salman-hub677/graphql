@@ -58,6 +58,9 @@ const PiscineGraph = () => {
       zoom: {
         enabled: false,
       },
+      toolbar: {
+        show: false,
+      }
     },
     colors: ["red"],
     title: {
@@ -100,7 +103,7 @@ const PiscineGraph = () => {
           if (!val || typeof val !== "string") {
             return "";
           }
-          return val.length > 8 ? `${val.substring(0, 8)}...` : val; 
+          return val.length > 7 ? `${val.substring(0, 7)}...` : val; 
         },
         style: {
           colors: Array(Object.values(topfifteen).length).fill("white"),
@@ -153,7 +156,7 @@ const PiscineGraph = () => {
       options={options}
       type="bubble"
       series={series}
-      width={800}
+      width={950}
       height={450}
     />
   );

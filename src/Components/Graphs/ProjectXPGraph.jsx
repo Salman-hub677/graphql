@@ -22,11 +22,18 @@ const ProjectXPGraph = () => {
   if (isError) return <p>Error</p>;
 
   const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount).slice(-20);
+  console.log(dataArray)
+  if (dataArray.length === 0 ){
+    
+    return <h4>No Data Found</h4>
+  }
   
 
 
   let chartOptions = {
-    chart: { id: "xp-chart", type: "bar" },
+    chart: { id: "xp-chart", type: "bar",  toolbar: {
+      show: false,
+    } },
     title: {
       text: "Top 20 XP earned Projects",
       align: "center",
@@ -41,11 +48,11 @@ const ProjectXPGraph = () => {
       title: {
         text: charttype === "H" ? "XP" : "Projects",
         style: {
-          fontSize: "12px",
+          fontSize: "16px",
           color: "White",
         },
-        
-      
+        offsetX: charttype === "H" ? 0 : 530,
+        offsetY: charttype === "H" ? 0 : -13
       },
       categories: dataArray.map((item) => item.object.name),
       labels: {
@@ -54,7 +61,7 @@ const ProjectXPGraph = () => {
           fontSize: charttype === "H" ? "15px" : "15px",
         },
         formatter: function (val) {
-          const maxLength = 10; 
+          const maxLength = 20; 
           let label = val.toString();
       
           if (label.length > maxLength) {
