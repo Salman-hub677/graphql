@@ -61,7 +61,7 @@ const PiscineGraph = () => {
     },
     colors: ["red"],
     title: {
-      text: "Top 15 Most Tried Exercises in GO Piscine",
+      text: "Most Tested Exercises in Go Piscine",
       align: "center",
       style: {
         color: "white",

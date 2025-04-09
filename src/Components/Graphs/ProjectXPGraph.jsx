@@ -21,12 +21,14 @@ const ProjectXPGraph = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;
 
-  const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount);
+  const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount).slice(-20);
+  
+
 
   let chartOptions = {
     chart: { id: "xp-chart", type: "bar" },
     title: {
-      text: "XP earned per Project",
+      text: "Top 20 XP earned Projects",
       align: "center",
       style: {
         color: "white",
@@ -42,26 +44,45 @@ const ProjectXPGraph = () => {
           fontSize: "12px",
           color: "White",
         },
+        
+      
       },
       categories: dataArray.map((item) => item.object.name),
       labels: {
         style: {
           colors: "white",
-          fontSize: charttype === "H" ? "13px" : "9px",
+          fontSize: charttype === "H" ? "15px" : "15px",
         },
-      },
+        formatter: function (val) {
+          const maxLength = 10; 
+          let label = val.toString();
+      
+          if (label.length > maxLength) {
+            label = label.substring(0, maxLength - 3) + '...'; 
+          }
+      
+          return charttype === "H" ? label + "B" : label;
+        }
+      }
+      
     },
     tooltip: {
       enabled: true,
       shared: false,
       followCursor: true,
       theme: "dark",
-      y: {
-        formatter(val) {
-          return `${val}`;
-        },
+      x: {
+        formatter: function (val) {
+          return val; 
+        }
       },
+      y: {
+        formatter: function (val) {
+          return `${val}`;
+        }
+      }
     },
+    
 
     yaxis: {
       title: {
@@ -70,14 +91,17 @@ const ProjectXPGraph = () => {
           fontSize: "12px",
           color: "White",
         },
-        offsetX: 9,
+        offsetX: charttype === "H" ? 10 : 0,
+        
       },
       labels: {
         style: {
           colors: "white",
-
-          fontSize: "12px",
+          fontSize: "14px",
         },
+        formatter: function (val) {
+          return charttype === "H" ?  val  : val + "B";
+        }
       },
     },
 

@@ -65,19 +65,16 @@ query Result {
 
 `
 
-export const Dates_Projects = gql `
-query Progress {
-    progress(where: { object: { type: { _eq: "project" } }, isDone: { _eq: true } }) {
-      createdAt
-      updatedAt
-        object {
-          attrs
-            name
-        }
-        
-    }
-}
-`
-
-
-// how many audits u did and how many you missed
+  export const Dates_Projects = gql `
+  query Progress {
+      progress(where: { object: { type: { _eq: "project" } }, isDone: { _eq: true } }) {
+        createdAt
+        updatedAt
+          object {
+            attrs
+              name
+          }
+          
+      }
+  }
+  `
