@@ -9,6 +9,7 @@ import {
   UserInfo,
 } from "../Queries/Query";
 import { useQuery } from "@apollo/client";
+
 const Profile = ({ onLogout }) => {
  
   const {
@@ -36,8 +37,10 @@ const Profile = ({ onLogout }) => {
   const userInfo = userData.user[0];
 
   return (
-  
-    <Container fluid className="p-4" style={{ backgroundColor: '#1a1a1a' }}>
+    <div>
+      
+    <Container fluid className="p-4" style={{ backgroundColor: '#1a1a1a' }} >
+    
     <Row className="mb-4" >
       <Col md={8} >
         <h1 className="mb-3 text-light">Welcome, {userInfo.login}</h1>
@@ -89,7 +92,7 @@ const Profile = ({ onLogout }) => {
       </Col>
     </Row>
   </Container>
-  
+  </div>
   
   );
 };

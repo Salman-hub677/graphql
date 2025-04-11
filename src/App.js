@@ -1,37 +1,57 @@
-import React, { useState, Suspense } from 'react';
-
+import React, { useState, Suspense , useEffect} from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
-
 import './App.css';
+import { jwtDecode } from 'jwt-decode';
+import LoginForm from './Components/LoginForm/Login-Form';
+import Profile from './Components/Dashboard/Profile'
 
-const LoginForm = React.lazy(() => import('./Components/LoginForm/Login-Form'));
-const Profile = React.lazy(() => import('./Components/Dashboard/Profile'));
+ const isTokenExpired = (token) => {
+  if (!token) return true; 
+  try {
+    const { exp } = jwtDecode(token); 
+    const currentTime = Date.now() / 1000; 
+    return exp < currentTime; 
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return true; 
+  }
+};
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
-  const navigate = useNavigate();
+function App() { 
+const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+const navigate = useNavigate();
 
-  const handleLogin = () => {
-    
-    setIsAuthenticated(true);
-    navigate("/dashboard");
-  };
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (isTokenExpired(token)) {
+    localStorage.removeItem('token'); 
+    setIsAuthenticated(false);       
+    navigate('/');                   
+  }
+}, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    navigate("/");
-  };
+const handleLogin = () => {
+  setIsAuthenticated(true);
+  navigate("/dashboard");
+};
 
-  return (
-    <Suspense fallback={<div className="loading-screen">Loading...</div>}>
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  setIsAuthenticated(false);
+  navigate("/");
+};
+
+return (
+  <div style={{ backgroundColor: "#1a1a1a", minHeight: "100vh" }}>
+    <Suspense fallback={<div style={{ backgroundColor: '#1a1a1a', height: "100vh" }} />}>
       <Routes>
         {!isAuthenticated && <Route path="/" element={<LoginForm onAuthSuccess={handleLogin} />} />}
         {isAuthenticated && <Route path="/dashboard" element={<Profile onLogout={handleLogout} />} />}
         <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} replace />} />
       </Routes>
     </Suspense>
-  );
+  </div>
+);
 }
 
 export default App;
