@@ -42,7 +42,7 @@ const LoginForm = ({ onAuthSuccess }) => {
     
   }, []); 
 
- // Separate effect for updating options (like color).
+ 
   useEffect(() => {
     if (vantaEffect) {
       vantaEffect.setOptions({ color });

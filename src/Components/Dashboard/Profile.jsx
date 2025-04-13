@@ -37,13 +37,14 @@ const Profile = ({ onLogout }) => {
   const userInfo = userData.user[0];
 
   return (
-    <div>
       
     <Container fluid className="p-4" style={{ backgroundColor: '#1a1a1a' }} >
     
     <Row className="mb-4" >
       <Col md={8} >
         <h1 className="mb-3 text-light">Welcome, {userInfo.login}</h1>
+        <p className="text-light">Fullname: {userInfo.firstName} {userInfo.lastName}</p>
+        
         <p className="text-light">Email: {userInfo.email}</p>
       </Col>
       <Col md={4} className="text-right d-flex justify-content-end align-items-center">
@@ -92,7 +93,7 @@ const Profile = ({ onLogout }) => {
       </Col>
     </Row>
   </Container>
-  </div>
+
   
   );
 };

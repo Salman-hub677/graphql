@@ -64,22 +64,18 @@ export const AuditGraph = () => {
       },
     },
     legend: {
-      fontSize: "14px",
-      fontWeight: "bold",
-      labels: {
-        fontFamily: "Arial, sans-serif",
-        colors: ["white", "white"],
-      },
-    },
+      show: false
+    }
+    
   };
 
   const series = [doneAmount, recievedAmount];
 
   return (
-    <div>
+    <div style = {{ width : "100%"}}>
       <h4>Done : {doneAmount}</h4>
       <h4>Recieved: {recievedAmount}</h4>
-      <Chart options={options} series={series} type="donut" height={400} width={400} />
+      <Chart options={options} series={series} type="donut" height={400} width="100%" />
       <h1>{auditRatio}x</h1>
     </div>
   );

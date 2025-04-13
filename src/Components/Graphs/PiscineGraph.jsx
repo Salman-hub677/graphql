@@ -20,8 +20,6 @@ const PiscineGraph = () => {
 
   const dataStore = isData.result;
 
-  
-
   const result = dataStore.reduce((acc, { objectId, grade, object }) => {
     if (grade === 0) {
       acc[object.name] = {
@@ -60,7 +58,7 @@ const PiscineGraph = () => {
       },
       toolbar: {
         show: false,
-      }
+      },
     },
     colors: ["red"],
     title: {
@@ -77,7 +75,7 @@ const PiscineGraph = () => {
       shared: false,
       followCursor: true,
       theme: "dark",
-      custom: function({ series, seriesIndex, dataPointIndex, w }) {
+      custom: function ({ series, seriesIndex, dataPointIndex, w }) {
         const data = w.config.series[seriesIndex].data[dataPointIndex];
         return `
           <div class="tooltip-box">
@@ -103,7 +101,7 @@ const PiscineGraph = () => {
           if (!val || typeof val !== "string") {
             return "";
           }
-          return val.length > 7 ? `${val.substring(0, 7)}...` : val; 
+          return val.length > 7 ? `${val.substring(0, 7)}...` : val;
         },
         style: {
           colors: Array(Object.values(topfifteen).length).fill("white"),
@@ -134,7 +132,6 @@ const PiscineGraph = () => {
       },
     },
 
-   
     dataLabels: {
       enabled: false,
     },
@@ -152,13 +149,15 @@ const PiscineGraph = () => {
   ];
 
   return (
-    <ApexCharts
-      options={options}
-      type="bubble"
-      series={series}
-      width={800}
-      height={450}
-    />
+    <div style={{ width: "100%" }}>
+      <ApexCharts
+        options={options}
+        type="bubble"
+        series={series}
+        width="100%"
+        height={450}
+      />
+    </div>
   );
 };
 

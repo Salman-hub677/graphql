@@ -20,8 +20,8 @@ const ProjectXPGraph = () => {
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;
-
-  const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount).slice(-20);
+  let data = charttype === "H" ? (-20) : (0 ,15)
+  const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount).slice(data);
   console.log(dataArray)
   if (dataArray.length === 0 ){
     
@@ -35,7 +35,7 @@ const ProjectXPGraph = () => {
       show: false,
     } },
     title: {
-      text: "Top 20 XP earned Projects",
+      text: charttype === "H" ? "Top 20 XP earned Projects" :"Top 5 XP earned project",
       align: "center",
       style: {
         color: "white",
@@ -56,12 +56,13 @@ const ProjectXPGraph = () => {
       },
       categories: dataArray.map((item) => item.object.name),
       labels: {
+        rotate: -90,
         style: {
           colors: "white",
           fontSize: charttype === "H" ? "15px" : "15px",
         },
         formatter: function (val) {
-          const maxLength = 20; 
+          const maxLength = 10; 
           let label = val.toString();
       
           if (label.length > maxLength) {
@@ -132,7 +133,7 @@ const ProjectXPGraph = () => {
   ];
 
   return (
-    <div>
+    <div style={{ width : "100%"}}>
       <Button
         variant="outline-light"
         onClick={() =>
@@ -147,7 +148,7 @@ const ProjectXPGraph = () => {
         series={series}
         type="bar"
         height={450}
-        width={1250}
+        width= "100%"
       />
     </div>
   );

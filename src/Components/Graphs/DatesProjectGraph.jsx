@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Dates_Projects } from "../Queries/Query";
 import Chart from "react-apexcharts";
@@ -15,12 +15,12 @@ const DatesGraph = () => {
     loading: isLoading,
     error: isError,
     data: infoData,
-    refetch: refetchUserData
+    refetch: refetchUserData,
   } = useQuery(Dates_Projects);
 
   useEffect(() => {
-     refetchUserData();
-   }, [refetchUserData]);
+    refetchUserData();
+  }, [refetchUserData]);
 
   if (isLoading) return <p>Loading ...</p>;
   if (isError) return <p>Error</p>;
@@ -57,11 +57,9 @@ const DatesGraph = () => {
   console.log(golang);
   console.log(js);
 
-  if (js.length ===0 && golang.length === 0){
-     return <h4>No Data Found</h4>
+  if (js.length === 0 && golang.length === 0) {
+    return <h4>No Data Found</h4>;
   }
-
-  
 
   const goSeries = {
     name: "Golang",
@@ -74,7 +72,10 @@ const DatesGraph = () => {
   };
 
   const options = {
-    title: { text: "Golang and JS Project Timeline", style: { color : "white" , fontSize : "14px"} },
+    title: {
+      text: "Golang and JS Project Timeline",
+      style: { color: "white", fontSize: "14px" },
+    },
     colors: ["red", "green"],
     chart: {
       zoom: {
@@ -83,7 +84,7 @@ const DatesGraph = () => {
       type: "scatter",
       toolbar: {
         show: false,
-      }
+      },
     },
     yaxis: {
       title: {
@@ -106,15 +107,15 @@ const DatesGraph = () => {
     xaxis: {
       type: "datetime",
       tickAmount: 17,
-     
+
       title: {
         text: "Date Completed",
         style: {
           color: "white",
           fontWeight: "bold",
-          fontSize : "15px"
+          fontSize: "15px",
         },
-        offsetY: 25,
+        offsetY: 5,
       },
       labels: {
         formatter: function (val) {
@@ -135,7 +136,7 @@ const DatesGraph = () => {
       followCursor: true,
       theme: "dark",
       enabled: true,
-      custom: function({ series, seriesIndex, dataPointIndex, w }) {
+      custom: function ({ series, seriesIndex, dataPointIndex, w }) {
         const data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
         const date = new Date(data[0]).toLocaleString("en-US", {
           year: "numeric",
@@ -143,50 +144,43 @@ const DatesGraph = () => {
           day: "numeric",
         });
         const daysSpent = data[1];
-  
-    
-     
+
         const samePoints = w.globals.initialSeries[seriesIndex].data.filter(
-          point => point[0] === data[0] && point[1] === data[1]
+          (point) => point[0] === data[0] && point[1] === data[1]
         );
-    
+
         let content = `<div style="padding: 10px;">
           <strong>Date Completed:</strong> ${date}<br>
           <strong>Days Spent:</strong> ${daysSpent}<br>
           <strong>Projects:</strong><br>`;
-    
-        samePoints.forEach(point => {
+
+        samePoints.forEach((point) => {
           content += `- ${point[2]}<br>`;
         });
-    
-        content += '</div>';
-    
-        return content;
-      }
-    },
-    legend: {
-      offsetY: 20,
-      offsetX: 800,
-      fontSize: "14px",
-      fontWeight: "bold",
 
-      labels: {
-        fontFamily: "Arial, sans-serif",
-        colors: ["white", "white"],
+        content += "</div>";
+
+        return content;
       },
     },
+      legend: {
+      show: false
+    }
   };
 
   const series = [goSeries, jsSeries];
 
   return (
-    <Chart
-      options={options}
-      series={series}
-      type="scatter"
-      width={1100}
-      height={500}
-    />
+    <div style={{ width: "100%"  }}>
+      <Chart
+        options={options}
+        series={series}
+        type="scatter"
+        width="90%"
+        height={500}
+        style={{ marginLeft: "100px" }}
+      />
+    </div>
   );
 };
 
