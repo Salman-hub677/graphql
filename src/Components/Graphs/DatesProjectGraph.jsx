@@ -74,9 +74,9 @@ const DatesGraph = () => {
   const options = {
     title: {
       text: "Golang and JS Project Timeline",
-      style: { color: "white", fontSize: "14px" },
+      style: { color: "white", fontSize: "14px" ,  fontFamily: "'Walter Turncoat', cursive", },
     },
-    colors: ["red", "green"],
+    colors: ["#fff176", "#cba0ff"],
     chart: {
       zoom: {
         enabled: false,
@@ -92,6 +92,7 @@ const DatesGraph = () => {
         style: {
           color: "white",
           fontWeight: "bold",
+          fontFamily: "'Walter Turncoat', cursive", 
           fontSize: "15px",
         },
         offsetX: -6,
@@ -100,6 +101,7 @@ const DatesGraph = () => {
         style: {
           colors: "white",
           fontSize: "12px",
+          fontFamily: "'Walter Turncoat', cursive", 
         },
       },
     },
@@ -112,6 +114,7 @@ const DatesGraph = () => {
         text: "Date Completed",
         style: {
           color: "white",
+          fontFamily: "'Walter Turncoat', cursive", 
           fontWeight: "bold",
           fontSize: "15px",
         },
@@ -127,6 +130,7 @@ const DatesGraph = () => {
         },
         offsetY: 7,
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           colors: "white",
         },
       },
@@ -171,16 +175,19 @@ const DatesGraph = () => {
   const series = [goSeries, jsSeries];
 
   return (
-    <div style={{ width: "100%"  }}>
+    <div style={{ width: "100%" }}>
+    <div style={{ width: "92%", margin: "0 auto" }}>
       <Chart
         options={options}
         series={series}
         type="scatter"
-        width="90%"
+        width="100%" 
         height={500}
-        style={{ marginLeft: "100px" }}
       />
     </div>
+  </div>
+  
+  
   );
 };
 

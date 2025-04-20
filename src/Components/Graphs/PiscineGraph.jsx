@@ -19,6 +19,9 @@ const PiscineGraph = () => {
   if (isError) return <p>Error fetching user data</p>;
 
   const dataStore = isData.result;
+  if (dataStore.length === 0) {
+    return <h4>No Data Found</h4>;
+  }
 
   const result = dataStore.reduce((acc, { objectId, grade, object }) => {
     if (grade === 0) {
@@ -34,6 +37,10 @@ const PiscineGraph = () => {
     }
     return acc;
   }, {});
+
+  if (result.length === 0) {
+    return <h4>No Data Found</h4>;
+  }
 
   const topfifteen = Object.values(result)
     .filter(
@@ -60,13 +67,14 @@ const PiscineGraph = () => {
         show: false,
       },
     },
-    colors: ["red"],
+    colors: ["	#a5d6a7"],
     title: {
       text: "Most Tested Exercises in Go Piscine",
       align: "center",
       style: {
+        fontFamily: "'Walter Turncoat', cursive", 
         color: "white",
-        fontSize: "18px",
+        fontSize: "14px",
         fontWeight: "bold",
       },
     },
@@ -91,10 +99,12 @@ const PiscineGraph = () => {
       title: {
         text: "Exercise",
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           color: "white",
-          fontSize: "14px",
+          fontSize: "15px",
           fontWeight: "bold",
         },
+        offsetY: 2,
       },
       labels: {
         formatter(val) {
@@ -104,11 +114,12 @@ const PiscineGraph = () => {
           return val.length > 7 ? `${val.substring(0, 7)}...` : val;
         },
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           colors: Array(Object.values(topfifteen).length).fill("white"),
-          fontSize: "12px",
+          fontSize: "13px",
         },
         rotateAlways: true,
-        rotate: 330,
+        rotate: 270,
         trim: false,
         hideOverlappingLabels: false,
         offsetY: 5,
@@ -119,6 +130,7 @@ const PiscineGraph = () => {
       title: {
         text: "Count",
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           color: "white",
           fontSize: "14px",
           fontWeight: "bold",

@@ -49,25 +49,42 @@ export const AuditGraph = () => {
         return <h4>No Data Found</h4>
       }
 
-  const options = {
-    chart: {
-      type: "donut",
-    },
-    labels: ["done", "recieved"],
-    colors: ["green", "red"],
-    dataLabels: {
-      style: {
-        fontSize: "12px",
-        fontFamily: "Arial, sans-serif",
-        fontWeight: "bold",
-        colors: ["white"],
-      },
-    },
-    legend: {
-      show: false
-    }
-    
-  };
+      const options = {
+        chart: {
+          type: "donut",
+        },
+        labels: ["done", "received"],
+        colors: ["white", "#80dfff"],
+        dataLabels: {
+          style: {
+            fontSize: "12px",
+            fontFamily: "'Walter Turncoat', cursive", 
+            fontWeight: "bold",
+            colors: ["black"],
+          },
+        },
+        legend: {
+          show: false,
+        },
+        tooltip: {
+          enabled: true,
+          style: {
+            fontSize: "14px",
+            fontFamily: "'Walter Turncoat', cursive", 
+            color: "white", 
+          },
+        
+          fillSeriesColor: false, 
+          marker: {
+            show: false, 
+          },
+          theme: "dark", 
+          background: "#2e4d2c", 
+          borderColor: "#cfd8c0", 
+  
+        },
+      };
+      
 
   const series = [doneAmount, recievedAmount];
 

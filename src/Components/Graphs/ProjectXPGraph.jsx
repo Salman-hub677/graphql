@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { Project_XP } from "../Queries/Query";
 import { Button } from "react-bootstrap";
 
+
 const ProjectXPGraph = () => {
   const {
     loading: isLoading,
@@ -20,46 +21,56 @@ const ProjectXPGraph = () => {
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;
-  let data = charttype === "H" ? (-20) : (0 ,15)
-  const dataArray = [...XPdata.transaction].sort((a, b) => a.amount - b.amount).slice(data);
+  let dataArray;
+
+  if (charttype === "H") {
+  
+    dataArray = [...XPdata.transaction]
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 15);
+  } else {
+    
+    dataArray = [...XPdata.transaction]
+      .sort((a, b) => a.amount - b.amount)
+      .slice(0, 15);
+  }
   console.log(dataArray)
   if (dataArray.length === 0 ){
     
-    return <h4>No Data Found</h4>
+    
   }
-  
-
-
   let chartOptions = {
+    
     chart: { id: "xp-chart", type: "bar",  toolbar: {
       show: false,
     } },
     title: {
-      text: charttype === "H" ? "Top 20 XP earned Projects" :"Top 5 XP earned project",
+      text: charttype === "H" ? "Top earned XP Projects" :" Least earned XP Projects",
       align: "center",
       style: {
+        fontFamily: "'Walter Turncoat', cursive", 
         color: "white",
         fontSize: "16px",
         fontWeight: "bold",
       },
     },
-    colors: charttype === "H" ? ["green"] : ["red"],
-    xaxis: {
+    colors: charttype === "H" ? ["#f48fb1"] : ["#fff176"],
+    xaxis: {  
       title: {
         text: charttype === "H" ? "XP" : "Projects",
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           fontSize: "16px",
           color: "White",
-        },
-        offsetX: charttype === "H" ? 0 : 530,
-        offsetY: charttype === "H" ? 0 : -13
+        },  
       },
       categories: dataArray.map((item) => item.object.name),
       labels: {
-        rotate: -90,
+        rotate: -45,
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           colors: "white",
-          fontSize: charttype === "H" ? "15px" : "15px",
+          fontSize: "15px",
         },
         formatter: function (val) {
           const maxLength = 10; 
@@ -96,6 +107,7 @@ const ProjectXPGraph = () => {
       title: {
         text: charttype === "H" ? "Projects" : "XP",
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           fontSize: "12px",
           color: "White",
         },
@@ -104,6 +116,7 @@ const ProjectXPGraph = () => {
       },
       labels: {
         style: {
+          fontFamily: "'Walter Turncoat', cursive", 
           colors: "white",
           fontSize: "14px",
         },
@@ -139,7 +152,7 @@ const ProjectXPGraph = () => {
         onClick={() =>
           charttype === "V" ? setcharttype("H") : setcharttype("V")
         }
-        style={{ background: charttype === "H" ? "red" : "green", border: "0" }}
+        style={{ background: charttype === "H" ? "#fff176" : "#f48fb1", border: "0" , color: "black" }}
       >
         Toggle Chart Style
       </Button>
