@@ -18,7 +18,7 @@ const LoginForm = ({ onAuthSuccess }) => {
   useEffect(() => {
     let effectInstance;
   
-    if (vantaRef.current && !vantaEffect) {
+    if (vantaRef.current ) {
       effectInstance = NET({
         el: vantaRef.current,
         mouseControls: true,
