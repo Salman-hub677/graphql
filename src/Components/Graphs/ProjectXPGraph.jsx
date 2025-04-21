@@ -57,6 +57,7 @@ const ProjectXPGraph = () => {
     },
     colors: charttype === "H" ? ["#f48fb1"] : ["#fff176"],
     xaxis: {  
+      tickAmount: 15,
       title: {
         text: charttype === "H" ? "XP" : "Projects",
         style: {
