@@ -18,7 +18,7 @@ import Profile from './Components/Dashboard/Profile'
 };
 
 function App() { 
-  localStorage.removeItem("token");
+
 const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 const navigate = useNavigate();
 

@@ -7,8 +7,9 @@ import client from './Components/ApolloClient/ApolloClient';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+localStorage.removeItem("token");
 root.render(
-
+  
   <ApolloProvider client={client}>
     <BrowserRouter>
       <div style={{  backgroundColor: "black"}}>
