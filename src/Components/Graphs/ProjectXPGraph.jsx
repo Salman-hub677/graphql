@@ -20,7 +20,7 @@ const ProjectXPGraph = () => {
   const [charttype, setcharttype] = useState("H");
 
   if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error</p>;
+  if (isError) return <p>Errors</p>;
   let dataArray;
 
   if (charttype === "H") {
