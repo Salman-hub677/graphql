@@ -16,8 +16,10 @@ const LoginForm = ({ onAuthSuccess }) => {
   const [color, setColor] = useState("White");
 
   useEffect(() => {
+    let effectInstance;
+  
     if (vantaRef.current && !vantaEffect) {
-      const effectInstance = NET({
+      effectInstance = NET({
         el: vantaRef.current,
         mouseControls: true,
         touchControls: true,
@@ -26,21 +28,21 @@ const LoginForm = ({ onAuthSuccess }) => {
         minWidth: 200.0,
         scale: 1.0,
         scaleMobile: 1.0,
-        color: color,
         backgroundColor: 0x000000,
         points: 20.0,
         THREE,
       });
       setVantaEffect(effectInstance);
     }
+  
     return () => {
-      if (vantaEffect) {
-        vantaEffect.destroy();
+      if (effectInstance) {
+        effectInstance.destroy();
         setVantaEffect(null);
       }
     };
-    
-  }, [vantaEffect,color]); 
+  }, []); 
+  
 
  
   useEffect(() => {

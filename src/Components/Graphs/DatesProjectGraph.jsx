@@ -108,7 +108,7 @@ const DatesGraph = () => {
 
     xaxis: {
       type: "datetime",
-      tickAmount: 17,
+      tickAmount: 15,
 
       title: {
         text: "Date Completed",
@@ -118,9 +118,11 @@ const DatesGraph = () => {
           fontWeight: "bold",
           fontSize: "15px",
         },
-        offsetY: 5,
+        offsetY: 8,
       },
+    
       labels: {
+        
         formatter: function (val) {
           return new Date(val).toLocaleString("en-US", {
             year: "numeric",
@@ -128,7 +130,7 @@ const DatesGraph = () => {
             day: "numeric",
           });
         },
-        offsetY: 7,
+        offsetY: -1,
         style: {
           fontFamily: "'Walter Turncoat', cursive", 
           colors: "white",
