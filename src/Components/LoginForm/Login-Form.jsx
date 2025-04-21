@@ -40,7 +40,7 @@ const LoginForm = ({ onAuthSuccess }) => {
       }
     };
     
-  }, []); 
+  }, [vantaEffect,color]); 
 
  
   useEffect(() => {

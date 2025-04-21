@@ -34,9 +34,10 @@ const ProjectXPGraph = () => {
       .sort((a, b) => a.amount - b.amount)
       .slice(0, 15);
   }
+  if (dataArray)
   console.log(dataArray)
   if (dataArray.length === 0 ){
-    
+    return <h4>No Data Found</h4>;
     
   }
   let chartOptions = {
