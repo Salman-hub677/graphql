@@ -57,7 +57,7 @@ const ProjectXPGraph = () => {
     },
     colors: charttype === "H" ? ["#f48fb1"] : ["#fff176"],
     xaxis: {  
-      tickAmount: 15,
+      tickAmount: 12,
       title: {
         text: charttype === "H" ? "XP" : "Projects",
         style: {
@@ -68,7 +68,7 @@ const ProjectXPGraph = () => {
       },
       categories: dataArray.map((item) => item.object.name),
       labels: {
-        rotate: -45,
+        
         style: {
           fontFamily: "'Walter Turncoat', cursive", 
           colors: "white",

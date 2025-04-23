@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Form, Button, Container, InputGroup } from "react-bootstrap";
-import * as THREE from "three";  
+import * as THREE from "three";
 import NET from "vanta/dist/vanta.net.min";
 
 const endpoint = "https://learn.reboot01.com/api/auth/signin";
@@ -17,8 +17,8 @@ const LoginForm = ({ onAuthSuccess }) => {
 
   useEffect(() => {
     let effectInstance;
-  
-    if (vantaRef.current ) {
+
+    if (vantaRef.current) {
       effectInstance = NET({
         el: vantaRef.current,
         mouseControls: true,
@@ -34,17 +34,15 @@ const LoginForm = ({ onAuthSuccess }) => {
       });
       setVantaEffect(effectInstance);
     }
-  
+
     return () => {
       if (effectInstance) {
         effectInstance.destroy();
         setVantaEffect(null);
       }
     };
-  }, []); 
-  
+  }, []);
 
- 
   useEffect(() => {
     if (vantaEffect) {
       vantaEffect.setOptions({ color });
@@ -59,7 +57,7 @@ const LoginForm = ({ onAuthSuccess }) => {
       encodedCredentials = btoa(`${username}:${password}`);
     } catch (error) {
       console.error("Encoding Error:", error.message);
-      encodedCredentials = null; 
+      encodedCredentials = null;
     }
 
     try {
@@ -95,7 +93,11 @@ const LoginForm = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div ref={vantaRef} className="bg d-flex justify-content-center align-items-center vh-100">
+    <div
+      ref={vantaRef}
+      className="bg d-flex justify-content-center align-items-center vh-100"
+      style={{ overflow: "hidden" }}
+    >
       <Container
         className="p-4 rounded text-light"
         style={{
