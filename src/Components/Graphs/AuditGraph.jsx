@@ -90,8 +90,8 @@ export const AuditGraph = () => {
 
   return (
     <div style = {{ width : "100%"}}>
-      <h4>Done : {doneAmount}</h4>
-      <h4>Recieved: {recievedAmount}</h4>
+      <h4>Done : {doneAmount} MB</h4>
+      <h4>Recieved: {recievedAmount} MB</h4>
       <Chart options={options} series={series} type="donut" height={400} width="100%" />
       <h1>{auditRatio}x</h1>
     </div>
